@@ -1,3 +1,6 @@
+# Example of IO syscalls in MIPS assembly
+# Author: Kevin Carvalho de Jesus
+
 .data
 age: .word 0
 ask_msg: .asciiz "Enter your age: " 
@@ -5,19 +8,23 @@ result_msg: .asciiz "Your age is: "
 
 .text
 main:
-  la $a0, ask_msg # loads the address of ask_msg into $a0
-  li $v0, 4       # instruction to display message on the console
-  syscall         
+  # displays ask_msg on the screen
+  la $a0, ask_msg
+  li $v0, 4
+  syscall
 
-  li $v0, 5   # instruction to wait for user input
-  syscall 
-  sw $v0, age # copy value entered into age
+  # reads stdin into age
+  li $v0, 5
+  syscall
+  sw $v0, age
   
-  la $a0, result_msg # copy address of result_msg into $a0
-  li $v0, 4          # instruction to display message on the console
+  # displays result_msg
+  la $a0, result_msg
+  li $v0, 4
   syscall 
 
-  lw $a0, age # instruction to display integer on the console
+  # displays age
+  lw $a0, age
   li $v0, 1
   syscall
 
